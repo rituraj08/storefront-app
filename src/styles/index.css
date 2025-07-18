@@ -8,6 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgb(188, 109, 12);
   z-index: 1000;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -24,6 +25,7 @@
 .textInput {
   width: 100%;
   position: relative;
+  align-content: center ;
 }
 .list {
   position: absolute;
@@ -44,6 +46,15 @@
 .filter {
   display: flex;
   flex-direction: column;
+  /* background-color: rgb(105, 105, 21); */
+  /* height: 5%; */
  
+}
+
+.card {
+  width: 250px;
+  height: 200px;
+  background-color: beige;
+  border: 1px solid black
 }
     

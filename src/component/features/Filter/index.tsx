@@ -1,19 +1,27 @@
-import Dropdown from "../../component/Dropdown";
 import { useDispatch } from "react-redux";
-import { setFilterByPrice, setFilterByRatings, setFilterByAlphabets } from "../../store/productsSlice";
-import { price, rating, aplphabetically } from "../../utils";
-import { FILTER_BY_PRICE, FILTER_BY_RATING, FILTER_ALPHABETICALLY } from "../../utils/constants";
+import {
+  setFilterByPrice,
+  setFilterByRatings,
+  setFilterByAlphabets,
+} from "../../../store/productsSlice";
+import { price, rating, aplphabetically } from "../../../utils";
+import {
+  FILTER_BY_PRICE,
+  FILTER_BY_RATING,
+  FILTER_ALPHABETICALLY,
+} from "../../../utils/constants";
+import Dropdown from "../../common/Dropdown";
 const Filter = () => {
   const dispatch = useDispatch();
- 
+
   const filterHandler = (type: string, value: string) => {
     console.log(type, value);
     if (type === FILTER_BY_PRICE) {
-      dispatch(setFilterByPrice({value, type}));
+      dispatch(setFilterByPrice({ value, type }));
     } else if (type === FILTER_BY_RATING) {
-      dispatch(setFilterByRatings({value, type}));
+      dispatch(setFilterByRatings({ value, type }));
     } else if (type === FILTER_ALPHABETICALLY) {
-      dispatch(setFilterByAlphabets({value, type}));
+      dispatch(setFilterByAlphabets({ value, type }));
     }
   };
   return (

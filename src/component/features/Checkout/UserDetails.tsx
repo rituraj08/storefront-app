@@ -1,26 +1,33 @@
-import TextInput from "../../component/TextInput";
-import Button from "../../component/Button";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
-import {setCheckoutData} from "./../../store/checkoutSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { setCheckoutData } from "../../../store/checkoutSlice";
 import { useNavigate } from "react-router-dom";
-import { useSelector } from "react-redux";
-import type { CheckoutData } from "../../types";
-import { fullNameValidation, emailValidation, phoneNumberValidation, creditCardNumberValidation } from "../../utils";
+import type { CheckoutData } from "../../../types";
+import TextInput from "../../common/TextInput";
+import Button from "../../common/Button";
+import {
+  fullNameValidation,
+  emailValidation,
+  phoneNumberValidation,
+  creditCardNumberValidation,
+} from "../../../utils";
 const UserDetails = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {checkoutData} = useSelector((state: {checkout: {checkoutData: CheckoutData}}) => state.checkout);
+  const { checkoutData } = useSelector(
+    (state: { checkout: { checkoutData: CheckoutData } }) => state.checkout
+  );
   const [fullName, setFullName] = useState(checkoutData.fullName);
   const [email, setEmail] = useState(checkoutData.email);
   const [phoneNumber, setPhoneNumber] = useState(checkoutData.phoneNumber);
-  const [creditCardNumber, setCreditCardNumber] = useState(checkoutData.creditCardNumber);
+  const [creditCardNumber, setCreditCardNumber] = useState(
+    checkoutData.creditCardNumber
+  );
 
   const [fullNameError, setFullNameError] = useState("");
   const [emailError, setEmailError] = useState("");
   const [phoneNumberError, setPhoneNumberError] = useState("");
   const [creditCardNumberError, setCreditCardNumberError] = useState("");
-
 
   const fullNameValidationHandler = () => {
     const isValid = fullNameValidation(fullName);
@@ -42,7 +49,9 @@ const UserDetails = () => {
 
   const creditCardNumberValidationHandler = () => {
     const isValid = creditCardNumberValidation(creditCardNumber);
-    setCreditCardNumberError(isValid ? "" : "Credit card number should be valid");
+    setCreditCardNumberError(
+      isValid ? "" : "Credit card number should be valid"
+    );
     return isValid;
   };
 
@@ -63,11 +72,16 @@ const UserDetails = () => {
       isValidPhoneNumber &&
       isValidCreditCardNumber
     ) {
-        dispatch(setCheckoutData({fullName, email, phoneNumber, creditCardNumber} as CheckoutData))
-        navigate("/OrderSummary");
+      dispatch(
+        setCheckoutData({
+          fullName,
+          email,
+          phoneNumber,
+          creditCardNumber,
+        } as CheckoutData)
+      );
+      navigate("/OrderSummary");
     }
-
-
   };
   return (
     <div
@@ -77,6 +91,8 @@ const UserDetails = () => {
         gap: "10px",
         width: "300px",
         margin: "auto",
+        alignContent: "center",
+        alignItems: "center",
       }}
     >
       <TextInput
@@ -87,9 +103,7 @@ const UserDetails = () => {
         }}
         placeholder={"Full Name"}
       />
-      {fullNameError && (
-        <span style={{ color: "red" }}>{fullNameError}</span>
-      )}
+      {fullNameError && <span style={{ color: "red" }}>{fullNameError}</span>}
       <TextInput
         value={email}
         onChange={(e) => {
@@ -122,7 +136,7 @@ const UserDetails = () => {
         <span style={{ color: "red" }}>{creditCardNumberError}</span>
       )}
 
-      <Button text="Checkout" onClick={checkoutHandler} />
+      <Button text="Checkout" onClick={checkoutHandler} width="300px" />
     </div>
   );
 };

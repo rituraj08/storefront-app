@@ -1,11 +1,11 @@
-import "./App.css";
 import { Provider } from "react-redux";
 import appStore from "./store/appStore";
-import "./styles/index.css";
-import Checkout from "./features/Checkout";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import HomeScreen from "./pages/HomeScreen";
-import OrderSummary from "./features/OrderSummary";
+import CheckoutScreen from "./pages/CheckoutScreen";
+import OrderSummaryScreen from "./pages/OrderSummaryScreen";
+import "./styles/index.css";
+import "./App.css";
 
 const RoutePath = createBrowserRouter([
   {
@@ -14,11 +14,11 @@ const RoutePath = createBrowserRouter([
   },
   {
     path: "/Checkout",
-    element: <Checkout />,
+    element: <CheckoutScreen />,
   },
   {
     path: "/OrderSummary",
-    element: <OrderSummary/>
+    element: <OrderSummaryScreen/>
   }
 ]);
 

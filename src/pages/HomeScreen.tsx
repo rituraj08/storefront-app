@@ -1,6 +1,6 @@
-import Search from "../features/Search";
-import Filter from "../features/Filter";
-import ProductList from "../features/ProdutList";
+import Search from "../component/features/Search";
+import Filter from "../component/features/Filter";
+import ProductList from "../component/features/ProdutList";
 const HomeScreen = () => {
   return (
     <div>

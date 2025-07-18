@@ -1,7 +1,7 @@
-interface ListProps {
-    list: any;
+interface ListProps <T> {
+    list: T;
 }
-const List = ({list}: ListProps) => {
+const List = ({list}: ListProps<T>) => {
     return (
         <div className="list">
            {list.map((item: any) => (

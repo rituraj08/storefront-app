@@ -1,20 +1,21 @@
 import { useEffect, useRef, useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { fetchProduct } from "../../api/LoadProduct";
-import { useSelector } from "react-redux";
-import Card from "../../component/Card";
-import Button from "../../component/Button";
-import { loadMoreProducts } from "../../store/productsSlice";
-import { throttle } from "../../utils";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchProduct } from "../../../api/LoadProduct";
+import Card from "../../common/Card";
+import Button from "../../common/Button";
+import { loadMoreProducts } from "../../../store/productsSlice";
+import { throttle } from "../../../utils";
 import { useNavigate } from "react-router-dom";
-import { addToCart } from "../../store/cartSlice";
-import type { Product } from "../../types";
-import type { AppDispatch } from "../../store/appStore";
+import { addToCart } from "../../../store/cartSlice";
+import type { Product } from "../../../types";
+import type { AppDispatch } from "../../../store/appStore";
 const ProductList = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
-  const { filteredProducts } = useSelector((state: {products : {filteredProducts : Product[]}}) => state.products);
+  const { filteredProducts } = useSelector(
+    (state: { products: { filteredProducts: Product[] } }) => state.products
+  );
 
   const handleScroll = useCallback(() => {
     if (containerRef.current) {
@@ -51,23 +52,20 @@ const ProductList = () => {
     dispatch(fetchProduct());
   }, [dispatch]);
 
-  const handleButtonClick =(product:Product) =>{
+  const handleButtonClick = (product: Product) => {
     console.log("handleButtonClick");
     console.log("product", product.id);
     console.log("addToCart");
-    dispatch(addToCart(product.id as number));
+    dispatch(addToCart(product.id));
     navigate("/Checkout");
-  }
-
-
+  };
 
   return (
     <div className="productList" ref={containerRef}>
-      
       {filteredProducts?.map((product: Product) => (
         <div key={product.id}>
           <Card key={product.id} product={product} />
-          <Button text="Buy" onClick={() => handleButtonClick(product)}/>
+          <Button text="Buy" onClick={() => handleButtonClick(product)} />
         </div>
       ))}
     </div>

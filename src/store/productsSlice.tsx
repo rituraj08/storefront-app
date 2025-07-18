@@ -1,15 +1,26 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { Product } from "../types";
 
+interface ProductsState {
+  currentIndex: number;
+  limit: number;
+  products: Product[];
+  filteredProducts: Product[];
+  searchProductsList: Product[];
+}
+
+
+const initialState: ProductsState = {
+  currentIndex: 0,
+  limit: 10,
+  products: [],
+  filteredProducts: [],
+  searchProductsList: [],
+}
+
 const productsSlice = createSlice({
   name: "products",
-  initialState: {
-    currentIndex: 0 as number,
-    limit: 10 as number,
-    products: [] as Product[],
-    filteredProducts: [] as Product[],
-    searchProductsList: [] as Product[],
-  },
+  initialState,
   reducers: {
     setProducts: (state, action) => {
       state.products = action.payload;
@@ -20,11 +31,11 @@ const productsSlice = createSlice({
       console.log("value type", typeof value);
       if(value ===  "1"){
         state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort(
-          (a: any, b: any) => a.price - b.price
+          (a, b) => a.price - b.price
         );
       }else if(value === "2"){
         state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort(
-          (a: any, b: any) => b.price - a.price
+          (a, b) => b.price - a.price
         );
       }
       console.log("filteredProducts", state.filteredProducts);
@@ -39,14 +50,14 @@ const productsSlice = createSlice({
       },
     setFilterByAlphabets: (state, action) => {
      
-      const { type, value} = action.payload;
-      console.log("type", type);
+      const { value} = action.payload;
+     
       if(value === "1"){
-        state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort((a: any, b: any) =>
+        state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort((a, b) =>
             a.title.localeCompare(b.title)  
         );
       }else if(value === "2"){
-        state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort((a: any, b: any) =>
+        state.filteredProducts = [...state.products].slice(state.currentIndex, state.currentIndex+state.limit).sort((a, b) =>
             b.title.localeCompare(a.title)
         );
       }
@@ -58,7 +69,7 @@ const productsSlice = createSlice({
         state.searchProductsList = [];
         return;
       }
-      state.searchProductsList = state.products.slice(state.currentIndex, state.currentIndex+state.limit).filter((item : any) => {
+      state.searchProductsList = state.products.slice(state.currentIndex, state.currentIndex+state.limit).filter((item) => {
         return item.title.toLowerCase().includes(value.trim().toLowerCase());
       });
       console.log("searchProductsList", state.searchProductsList);

@@ -8,6 +8,24 @@ export interface Product {
     title: string
 }
 
+export interface RootState {
+  products: {
+    currentIndex: number;
+    limit: number;
+    products: Product[];
+    filteredProducts: Product[];
+    searchProductsList: Product[];
+  };
+}
+
+export interface ProductScreenProps {
+    currentIndex: number,
+    limit: number,
+    products: Product[],
+    filteredProducts: Product[],
+    searchProductsList: Product[]
+}
+
 export interface CheckoutData{
     fullName: string,
     email: string,

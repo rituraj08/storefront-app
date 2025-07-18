@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 import type { CartItems } from "../types";
-type Id = number;
 const cartSlice = createSlice({
     name: "cart",
     initialState:{  
